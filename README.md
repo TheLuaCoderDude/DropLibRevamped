@@ -15,7 +15,7 @@ It features: All the UI elements you would ever want, super-easy to use yet vers
 ### Initialize
 It is recommended that you keep a local copy of the script, so updates don't break anything and load times are fast
 ```lua
-local gui = loadstring(game:HttpGet("https://gitlab.com/0x45.xyz/droplib/-/raw/master/drop-minified.lua"))():Init(CONFIG,SCREENGUI_PARENT)
+local gui = loadstring(game:HttpGet("https://raw.githubusercontent.com/TheLuaCoderDude/DropLibRevamped/refs/heads/main/drop-minified.lua"))():Init(CONFIG,SCREENGUI_PARENT)
 
 --Or if you use DropLib.rbxm
 local gui = require(pathToFolder.DropLib):Init(CONFIG,SCREENGUI_PARENT)
@@ -175,7 +175,7 @@ local config = {
     ["HeaderWidth"] = 250,
     ["AccentColor"] = Color3.new(0.6,0,0)
 }
-local gui = loadstring(game:HttpGet("https://gitlab.com/0x45.xyz/droplib/-/raw/master/drop-minified.lua"))():Init(config,game.CoreGui)
+local gui = loadstring(game:HttpGet("https://raw.githubusercontent.com/TheLuaCoderDude/DropLibRevamped/refs/heads/main/drop-minified.lua"))():Init(config,game.CoreGui)
 
 gui:CreateCategory("Clean Up"):CreateButton("Click",function() gui:CleanUp() end)
 local lpg = gui:CreateCategory("Local Player")
@@ -189,4 +189,4 @@ In addition to that, it overwrites the headerwidth and the accentcolor
 
 ## Building
 Although possible, the build system is rather hackish as of right now, so just use the minified version for all your needs.
-(Build is done through the plugin Compile.rbxmx and Rojo(ask me on discord on how), where DropLib.lua is selected and the button in the plugin menu is clicked. A merged and minified version should be in workspace)
+(Build is done through the plugin Compile.rbxmx and Rojo, where DropLib.lua is selected and the button in the plugin menu is clicked. A merged and minified version should be in workspace)
