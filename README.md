@@ -171,21 +171,71 @@ The configurations are held in gui.Config. When changes are made, make sure to c
 
 ## Examplecode
 ```lua
-local config = {
-    ["HeaderWidth"] = 250,
-    ["AccentColor"] = Color3.new(0.6,0,0)
+
+local CONFIG = {
+    PrimaryColor = Color3.fromRGB(27, 38, 59),
+    SecondaryColor = Color3.fromRGB(13, 27, 42),
+    AccentColor = Color3.fromRGB(41, 115, 115),
+    TextColor = Color3.new(1, 1, 1),
+    Font = Enum.Font.Gotham,
+    TextSize = 13,
+    HeaderWidth = 300,
+    HeaderHeight = 32,
+    EntryMargin = 1,
+    AnimationDuration = 0.4,
+    AnimationEasingStyle = Enum.EasingStyle.Quint,
+    DefaultEntryHeight = 35,
 }
-local gui = loadstring(game:HttpGet("https://raw.githubusercontent.com/TheLuaCoderDude/DropLibRevamped/refs/heads/main/drop-minified.lua"))():Init(config,game.CoreGui)
 
-gui:CreateCategory("Clean Up"):CreateButton("Click",function() gui:CleanUp() end)
-local lpg = gui:CreateCategory("Local Player")
+local SCREENGUI_PARENT = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-lpg:CreateSlider("Walk Speed", function(ws) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = ws end,0,100,nil,true,game.Players.LocalPlayer.Character.Humanoid.WalkSpeed)
-lpg:CreateSlider("Jump Power", function(jp) game.Players.LocalPlayer.Character.Humanoid.JumpPower = jp end,0,200,nil,true,game.Players.LocalPlayer.Character.Humanoid.JumpPower)
-lpg:CreateButton("Force Field", function() Instance.new("ForceField",game.Players.LocalPlayer.Character) end)
+local gui = loadstring(game:HttpGet("https://gitlab.com/0x45.xyz/droplib/-/raw/master/drop-minified.lua"))():Init(CONFIG, SCREENGUI_PARENT)
+
+local category = gui:CreateCategory("Example Category", UDim2.new(0.5, -150, 0.5, -100))
+local othercategory = gui:CreateCategory("Other Category", UDim2.new(0.5, -150, 0.5, -50))
+
+local section = category:CreateSection("Main Section")
+local othersection = category:CreateSection("Other Section")
+local othersection2 = othercategory:CreateSection("Other Section 2")
+
+local button = section:CreateButton("Click Me", function()
+    print("Button clicked!")
+end)
+
+local slider = section:CreateSlider("Volume", function(value)
+    print("Volume set to:", value)
+end, 0, 100, 1, true, 50)
+
+local switch = section:CreateSwitch("Toggle Feature", function(state)
+    print("Feature enabled:", state)
+end, false)
+
+local colorPicker = section:CreateColorPicker("Pick a Color", function(color)
+    print("Color selected:", color)
+end, true, Color3.new(1, 0, 0))
+
+local selector = section:CreateSelector("Select Player", function(selected)
+    print("Player selected:", selected.Name)
+end, function()
+    return game.Players:GetPlayers()
+end, nil)
+
+local label = othersection2:CreateTextLabel("Status: Ready")
+
+local keyDetector = othersection2:CreateKeyDetector("Press E", function(key)
+    print("Key detected:", key)
+end, Enum.KeyCode.E)
+
+local textbox = section:CreateTextBox("Enter your name", function(text)
+    print("Name entered:", text)
+end, ".+", false, "")
+
+gui:RecursiveUpdateGui()
+
+local DestroyMenu = othersection:CreateButton("Destroy Menu",function() gui:CleanUp() end)
+
 ```
-Super simple script which can set the walkspeed, jumppower and create a forcefield. Furthermore, it has a button to delete everything.
-In addition to that, it overwrites the headerwidth and the accentcolor
+Super simple script with no functionality.
 
 ## Building
 Although possible, the build system is rather hackish as of right now, so just use the minified version for all your needs.
